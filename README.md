@@ -2,6 +2,10 @@
 
 Este é um projeto de e-commerce desenvolvido com [Next.js](https://nextjs.org) que permite navegar por produtos, adicionar itens ao carrinho e finalizar compras.
 
+## 🌐 Aplicação Online
+
+Acesse a aplicação em produção: **[https://teste-insany.vercel.app/](https://teste-insany.vercel.app/)**
+
 ## 🚀 Tecnologias Utilizadas
 
 - **Next.js 15.5.2** - Framework React
