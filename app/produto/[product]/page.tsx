@@ -1,5 +1,6 @@
 
 import ButtonCart from "@/app/_components/_button-cart";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Container, ContainerContent } from "../../styles";
@@ -27,6 +28,11 @@ interface ProductPageProps {
   params: { product: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }
+
+export const metadata: Metadata = {
+  title: "Produto - InsanyShop",
+  description: "Produto - InsanyShop",
+};
 
 export default async function ProductPage({ params, searchParams }: ProductPageProps) {
     const productParams = await params

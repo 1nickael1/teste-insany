@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import Pagination from "../../_components/_pagination";
 import ProductCard from "../../_components/_product-card";
 import { CardContainer, Container, ContainerContent, SortByOption, SortBySelect } from "../../styles";
@@ -43,6 +44,11 @@ interface CategoryPageProps {
   params: { category: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }
+
+export const metadata: Metadata = {
+    title: "Categoria - InsanyShop",
+    description: "Categoria - InsanyShop",
+  };
 
 export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
     const category = await params
