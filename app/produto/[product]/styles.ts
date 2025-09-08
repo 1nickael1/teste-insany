@@ -11,7 +11,7 @@ export const ProductContainer = styled.div`
   width: 100%;
   height: 500px;
 
-  img {
+  .image {
     width: 500px;
     height: 500px;
     max-width: 100%;

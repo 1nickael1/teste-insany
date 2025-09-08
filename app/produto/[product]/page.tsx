@@ -67,6 +67,7 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
             alt={resultProducts?.product?.name}
             width={500}
             height={500}
+            className="image"
           />
           <DescriptionContainer>
             <div className="description-top">
