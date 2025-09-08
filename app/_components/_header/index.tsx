@@ -2,13 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CartContainer, HeaderContainer, SearchAndCartContainer, SearchContainer } from "./styles";
 
 
 export default function Header() {
   const [cart, setCart] = useState([]);
-
+  const [search, setSearch] = useState('');
+  const router = useRouter();
   useEffect(() => {
     const cartStored = localStorage.getItem("@insany-cart");
     
@@ -20,6 +22,10 @@ export default function Header() {
     setCart(cartStored ? JSON.parse(cartStored) : []);
   }, []);
 
+  function handleSearch() {
+    router.push(`/?search=${search}`);
+  }
+
   return (
     <div className="w-full bg-white">
       <HeaderContainer>
@@ -28,8 +34,8 @@ export default function Header() {
         </Link>
           <SearchAndCartContainer>
               <SearchContainer>
-                <input type="text" placeholder="Procurando por algo específico?" />
-                <button>
+                <input onKeyDown={handleSearch} type="text" placeholder="Procurando por algo específico?" value={search} onChange={(e) => setSearch(e.target.value)} />
+                <button onClick={handleSearch}>
                   <Image
                     src="/search-loupe.svg"
                     alt="search"

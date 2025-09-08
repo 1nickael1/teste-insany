@@ -18,10 +18,20 @@ export default function ButtonCart({product}: {product: Product}) {
     function handleAddToCart() {
         const cart = localStorage.getItem("@insany-cart");
         const cartItems = cart ? JSON.parse(cart) : [];
-        cartItems.push(product);
+        cartItems.push(formatProduct(product));
         localStorage.setItem("@insany-cart", JSON.stringify(cartItems));
         window.location.reload();
     }
+
+    function formatProduct(product: Product) {
+        return {
+            ...product,
+            quantity: 1,
+            price: product.price * 1,
+            total: product.price * 1
+        }
+    }
+
     return (
         <ButtonContainer onClick={() => handleAddToCart()}>
               <Image src="/cart.svg" alt="cart" width={24} height={24} />

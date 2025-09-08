@@ -57,12 +57,14 @@ export default async function Home({ searchParams }: HomeProps) {
   const page = allParams.page as string
   const category = allParams.category as string
   const sort = allParams.sort as string
+  const search = allParams.search as string
 
   async function fetchProducts() {
     let url = `${process.env.BASE_URL}/api/products?limit=6`
     if (page) url += `&page=${page}`
     if (category) url += `&category=${category}`
     if (sort) url += `&sort=${sort}`
+    if (search) url += `&search=${search}`
     
     const data = await fetch(url, {
       cache: 'no-store' 
@@ -89,11 +91,15 @@ export default async function Home({ searchParams }: HomeProps) {
           currentSort={sort}
         />
         <h1>Todos os produtos</h1>
+        { resultProducts?.products?.length > 0 ? (
         <CardContainer>
           {resultProducts?.products?.map((product: Product) => (
               <ProductCard key={product.id} product={product} />
           ))}
         </CardContainer>
+        ) : (
+          <p>Nenhum produto encontrado</p>
+        )}
         <Pagination pagination={resultProducts?.pagination} />
 
         <CategoryContainer>

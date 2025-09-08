@@ -39,7 +39,7 @@ const SearchContainer = styled.div`
         border: none;
         outline: none;
         background-color: transparent;
-        text-align: center;
+        text-align: left;
         font-family: Inter;
         font-size: 14px;
         font-style: normal;
