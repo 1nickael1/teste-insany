@@ -14,11 +14,30 @@ export interface Product {
     stock: number
   }
 
+export interface ProductCart extends Product {
+    quantity: number;
+    total: number;
+}
+
 export default function ButtonCart({product}: {product: Product}) {
     function handleAddToCart() {
         const cart = localStorage.getItem("@insany-cart");
-        const cartItems = cart ? JSON.parse(cart) : [];
-        cartItems.push(formatProduct(product));
+        let cartItems = cart ? JSON.parse(cart) : [];
+
+        if(cartItems.find((item: Product) => item.id === product.id)) {
+            cartItems = cartItems.map((item: ProductCart) => {
+                if(item.id === product.id) {
+                    return {
+                        ...item,
+                        quantity: item.quantity + 1,
+                        total: (item.quantity + 1) * product.price
+                    }
+                }
+                return item;
+            });
+        } else {
+            cartItems.push(formatProduct(product));
+        }
         localStorage.setItem("@insany-cart", JSON.stringify(cartItems));
         window.location.reload();
     }
@@ -27,7 +46,6 @@ export default function ButtonCart({product}: {product: Product}) {
         return {
             ...product,
             quantity: 1,
-            price: product.price * 1,
             total: product.price * 1
         }
     }

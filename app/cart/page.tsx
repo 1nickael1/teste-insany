@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { ProductCart } from "../_components/_button-cart";
 import { Container, ContainerContent } from "../styles";
 import { CardProduct, ContainerHeader, ContainerInfo, ContentLeft, ContentRight, DescriptionContainer, DescriptionFooter, DescriptionHeader } from "./style";
 
@@ -20,7 +21,7 @@ export interface Product {
 
 export default function CartPage() {
 
-  const [cart, setCart] = useState<Product[]>([]);
+  const [cart, setCart] = useState<ProductCart[]>([]);
 
   useEffect(() => {
     const cartStored = localStorage.getItem("@insany-cart");
@@ -36,7 +37,7 @@ export default function CartPage() {
   }, []);
 
   function totalPrice() {
-    return cart.reduce((acc, item) => acc + item.price, 0);
+    return cart.reduce((acc, item) => acc + item.total, 0);
   }
 
   if (cart.length === 0) {
@@ -51,6 +52,17 @@ export default function CartPage() {
   
   function handleRemoveFromCart(id: string) {
     const cartItems = cart.filter((item) => item.id !== id);
+    localStorage.setItem("@insany-cart", JSON.stringify(cartItems));
+    setCart(cartItems);
+  }
+
+  function handleUpdateQuantity(id: string, quantity: number) {
+    const cartItems = cart.map((item) => {
+      if(item.id === id) {
+        return { ...item, quantity: quantity, total: quantity * item.price };
+      }
+      return item;
+    });
     localStorage.setItem("@insany-cart", JSON.stringify(cartItems));
     setCart(cartItems);
   }
@@ -80,7 +92,12 @@ export default function CartPage() {
                   </DescriptionHeader>
                   <span className="description">{item.description}</span>
                   <DescriptionFooter>
-                    <span className="price">{formatPrice(item.price)}</span>
+                    <select className="quantity" defaultValue={item.quantity} onChange={(e) => handleUpdateQuantity(item.id, parseInt(e.target.value))}>
+                      {[...Array(item.stock).keys()].map((item) => (
+                        <option value={item + 1} key={item + 1}>{item + 1}</option>
+                      ))}
+                    </select>
+                    <span className="price">{formatPrice(item.total)}</span>
                   </DescriptionFooter>
                 </DescriptionContainer>
               </CardProduct>

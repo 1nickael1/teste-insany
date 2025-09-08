@@ -241,4 +241,19 @@ export const DescriptionFooter = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 100%;
+
+  select {
+    border-radius: 8px;
+    border: 1px solid #A8A8B3;
+    background-color: #F3F5F6;
+    padding: 8px 12px;
+    color: #737380;
+    text-align: center;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%; /* 24px */
+    text-transform: uppercase;
+  }
 `;
